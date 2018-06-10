@@ -1,0 +1,19 @@
+﻿{
+  "Default": {
+    "Client": "Wrk",
+    "PresetHeaders": "Plaintext",
+    "ClientProperties": {
+      "ScriptName": "pipeline",
+      "PipelineDepth": 16
+    },
+    "Source": {
+      "Repository": "https://github.com/kichalla/loggingperf.git",
+      "BranchOrCommit": "master",
+      "Project": "LoggingPerfApp/LoggingPerfApp.csproj"
+    },
+    "Port": 8080
+  },
+  "middleware": {
+    "Path": "/"
+  }
+}
