@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,23 +12,22 @@ namespace LoggingPerfApp
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private static readonly byte[] _helloWorldPayload = Encoding.UTF8.GetBytes("Hello, World!");
+
         public void ConfigureServices(IServiceCollection services)
         {
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.Run((context) =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
+                var response = context.Response;
+                var payloadLength = _helloWorldPayload.Length;
+                response.StatusCode = 200;
+                response.ContentType = "text/plain";
+                response.ContentLength = payloadLength;
+                return response.Body.WriteAsync(_helloWorldPayload, 0, payloadLength);
             });
         }
     }
