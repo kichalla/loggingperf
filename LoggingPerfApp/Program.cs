@@ -19,6 +19,7 @@ namespace LoggingPerfApp
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(lb => lb.SetMinimumLevel(LogLevel.Error))
                 .UseStartup<Startup>();
     }
 }
